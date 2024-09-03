@@ -3,21 +3,21 @@ User_Service = {
     module_prefix: "actions/user",
 
     GetUsers: function (successCallBack) {
-        fetch(User_Service.module_prefix+'/get_users.php')
+        fetch(User_Service.module_prefix+'/obtener_usuarios.php')
             .then(response => response.json())
             .then(data => successCallBack(data))
             .catch(error => console.error('Error:', error));
     },
 
     GetUser: function (userId, successCallBack) {
-        fetch(User_Service.module_prefix+'/get_users.php?id=' + encodeURIComponent(userId))
+        fetch(User_Service.module_prefix+'/obtener_usuarios.php?id=' + encodeURIComponent(userId))
             .then(response => response.json())
             .then(data => successCallBack(data))
             .catch(error => console.error('Error:', error));
     },
 
     SaveUser: function (formData, successCallBack) { 
-        fetch(User_Service.module_prefix+'/create_user.php', {
+        fetch(User_Service.module_prefix+'/agregar_usuario.php', {
             method: 'POST',
             body: formData
         })
@@ -27,7 +27,7 @@ User_Service = {
     },
 
     UpdateUser: function (formData, successCallBack) { 
-        fetch(User_Service.module_prefix+'/update_user.php', {
+        fetch(User_Service.module_prefix+'/editar_usuario.php', {
             method: 'POST',
             body: formData
         })
@@ -37,7 +37,7 @@ User_Service = {
     },
 
     DeleteUser: function (formData, successCallBack) {
-        fetch(User_Service.module_prefix+'/delete_user.php', {
+        fetch(User_Service.module_prefix+'/eliminar_usuario.php', {
             method: 'POST',
             body: formData
         })
