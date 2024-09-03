@@ -69,14 +69,7 @@ var UserManagement = {
         form.reset();
         form.querySelector('input[name="id"]').value = '';
     },
-
-    SaveUser: function () {
-        var formData = new FormData(document.querySelector(this.Controls.UserForm));
-        User_Service.SaveUser(formData, function () {
-            document.querySelector(UserManagement.Controls.UserModal).style.display = 'none';
-            UserManagement.LoadUsers();
-        });
-    },
+ 
 
     DeleteUser: function (userId) {
         debugger; 

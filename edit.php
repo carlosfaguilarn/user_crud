@@ -1,23 +1,26 @@
 <?php
+    // session_start();
+
+    // if (!isset($_SESSION['user_id'])) {
+    //     header("Location: login.php");
+    //     exit;
+    // }
+
     $title = "";
     $id = 0;
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $id = $_POST['id'];
         $title = $id == -1 ? "Agregar usuario" : "Modificar usuario";
-        //$title = $id;
     }
 ?>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Modificar Registro</title>
+    <title><?php echo $title ?></title>
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/edit.css">
     <script src="assets/lib/jquery/jquery-3.7.1.min.js"></script>
-    <!-- <link  href="assets/lib/fontawesome-6.6.0/css/fontawesome.css" rel="stylesheet" />
-    <link  href="assets/lib/fontawesome-6.6.0/css/brands.css" rel="stylesheet" />
-    <link  href="assets/lib/fontawesome-6.6.0/css/solid.css" rel="stylesheet" />  -->
 </head>
 
 <body>

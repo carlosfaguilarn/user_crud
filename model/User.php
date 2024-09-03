@@ -48,9 +48,10 @@ class User {
         $this->created_at = htmlspecialchars(strip_tags($this->created_at));
         $this->updated_at = htmlspecialchars(strip_tags($this->updated_at));
 
+        $hashed_password = password_hash($this->password, PASSWORD_DEFAULT);
         $stmt->bindParam(":name", $this->name);
         $stmt->bindParam(":username", $this->username);
-        $stmt->bindParam(":password", $this->password);
+        $stmt->bindParam(":password", $hashed_password);
         $stmt->bindParam(":email", $this->email);
         $stmt->bindParam(":created_at", $this->created_at);
         $stmt->bindParam(":updated_at", $this->updated_at);
@@ -90,14 +91,31 @@ class User {
 
     public function delete() {
         $query = "DELETE FROM " . $this->table_name . " WHERE id = :id";
-
         $stmt = $this->conn->prepare($query);
-
         $this->id = htmlspecialchars(strip_tags($this->id));
-
         $stmt->bindParam(":id", $this->id);
 
         if ($stmt->execute()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function login() {
+        $this->username = htmlspecialchars(strip_tags($this->username));
+        $this->password = htmlspecialchars(strip_tags($this->password));
+
+        $query = "SELECT id, username, password FROM " . $this->table_name . " WHERE username = :username";
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(':username', $this->username);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user && password_verify($this->password, $user['password'])) {
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['username'] = $user['username'];
             return true;
         }
 
