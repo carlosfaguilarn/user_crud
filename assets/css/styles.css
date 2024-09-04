@@ -15,7 +15,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #333;
+    background-color: #2E465B;
     padding: 10px 20px;
     color: white;
 }
@@ -56,7 +56,7 @@ body {
 
 .sidebar {
     width: 200px;
-    background-color: #333;
+    background-image: url("../img/left-panel.png");
     color: white;
     padding: 20px;
     display: flex;
@@ -64,11 +64,10 @@ body {
 }
 
 .add-contact {
-    background-color: #ff4c4c;
+    background-color: #cd3739;
     color: white;
     border: none;
     padding: 10px;
-    margin-bottom: 20px;
     cursor: pointer;
     text-align: left;
 }
@@ -88,16 +87,15 @@ body {
 .create-tag {
     background-color: transparent;
     color: #fff;
-    border: 1px solid #ff4c4c;
+    border: 1px solid green;
     padding: 10px;
     margin-top: auto;
     cursor: pointer;
-    text-align: left;
+    text-align: center;
 }
 
 .content {
     flex-grow: 1;
-    padding: 20px;
     background-color: white;
 }
 
@@ -113,7 +111,8 @@ th, td {
 }
 
 th {
-    background-color: #f2f2f2;
+    background-color: #cd3739;
+    color: white;
 }
 
 .role {
@@ -148,5 +147,21 @@ tr:hover {
 
 td i {
     color: #333;
+    cursor: pointer;
+}
+
+.logotipo {
+    width: 140px;
+}
+
+.container-button-add {
+    width: 200px;
+    display: flex;
+    justify-content: center;
+}
+
+.action-btn {
+    width: 20px;
+    margin-right: 20px;
     cursor: pointer;
 }

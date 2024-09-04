@@ -55,8 +55,8 @@ var UserManagement = {
                 userTableBody += '<td>' + user.created_at + '</td>';
                 userTableBody += '<td>' + user.updated_at + '</td>';
                 userTableBody += '<td>';
-                userTableBody += '<button class="btn btn-primary edit-user" data-id="' + user.id + '">Editar</button> ';
-                userTableBody += '<button class="btn btn-danger delete-user" data-id="' + user.id + '">Eliminar</button>';
+                userTableBody += '<img src="./assets/img/edit-icon.png" data-id="' + user.id + '" class="action-btn edit-user" alt="action" />';
+                userTableBody += '<img src="./assets/img/del-icon.png" data-id="' + user.id + '" class="action-btn delete-user" alt="action" />';
                 userTableBody += '</td>';
                 userTableBody += '</tr>';
             });

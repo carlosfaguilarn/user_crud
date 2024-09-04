@@ -38,7 +38,7 @@
 <body>
     <div class="container">
         <header class="header">
-            <div class="header-left">
+            <!-- <div class="header-left">
                 <span>Mostrar</span>
                 <select id="entries">
                     <option value="10">10</option>
@@ -47,18 +47,21 @@
                     <option value="100">100</option>
                 </select>
                 <span>entradas</span>
+            </div> -->
+            <div class="container-button-add">
+                <button id="addUserBtn" class="add-contact">Agregar usuario</button>
             </div>
+
             <div class="logo">
-                <h1 class="header-title">iSTRATEGY</h1>
+                <img src="./assets/img/logotipo.png" class="logotipo" alt="logotipo" />
             </div>
-            <div class="header-right">
+            <!-- <div class="header-right">
                 <input type="text" placeholder="Buscador..." id="search">
-            </div>
+            </div> -->
         </header>
 
         <div class="main">
             <aside class="sidebar">
-                <button id="addUserBtn" class="add-contact">Agregar usuario</button>
                 <ul class="menu">
                     <li class="menu-item">Trabajo <span class="count">12</span></li>
                     <li class="menu-item">Diseño <span class="count">30</span></li>
@@ -66,7 +69,7 @@
                     <li class="menu-item">Amigos <span class="count">10</span></li>
                     <li class="menu-item">Oficina <span class="count">3</span></li>
                 </ul>
-                <button class="create-tag">Crear nueva etiqueta</button>
+                <button class="create-tag">Iniciar sesión</button>
             </aside>
 
             <section class="content">
