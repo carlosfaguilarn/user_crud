@@ -20,6 +20,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRUD de Usuarios</title>
+    <link rel="stylesheet" href="assets/css/global.css">
     <link rel="stylesheet" href="assets/css/styles.css">
     <script src="assets/lib/jquery/jquery-3.7.1.min.js"></script>
 </head>
@@ -38,11 +39,11 @@
         <div class="main">
             <aside class="sidebar">
                 <ul class="menu">
-                    <li class="menu-item">Trabajo <span class="count">12</span></li>
-                    <li class="menu-item">Diseño <span class="count">30</span></li>
-                    <li class="menu-item">Familia <span class="count">5</span></li>
-                    <li class="menu-item">Amigos <span class="count">10</span></li>
-                    <li class="menu-item">Oficina <span class="count">3</span></li>
+                    <li class="menu-item">Trabajo</li>
+                    <li class="menu-item">Diseño</li>
+                    <li class="menu-item">Familia</li>
+                    <li class="menu-item">Amigos</li>
+                    <li class="menu-item">Oficina</li>
                 </ul>
 
                 <?php if ($isLoggedIn): ?>

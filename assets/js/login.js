@@ -29,7 +29,6 @@ var Login = {
     LogginSuccess: function (response){
         debugger;
         if (response.status) {
-            alert("Bienvenido");
             window.location.href = 'index.php';
         } else {
             document.querySelector('#loginError').textContent = response.message;

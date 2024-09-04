@@ -1,5 +1,4 @@
 body {
-    font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
@@ -85,20 +84,23 @@ body {
 }
 
 .btn-session {
-    background-color: transparent;
-    color: #fff;
     padding: 10px;
     margin-top: auto;
     cursor: pointer;
     text-align: center;
+    border-radius: 10px;
+    font-family: "Roboto Bold";
+    color: #FFF;
 }
 
 .btn-login {
-    border: 1px solid green;
+    background-color: rgb(2, 128, 2);
+    border: solid 2px green;
 }
 
 .btn-logout {
-    border: 1px solid red;
+    background-color: #cd3739;
+    border: solid 2px red;
 }
 
 .content {

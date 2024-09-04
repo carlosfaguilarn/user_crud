@@ -75,9 +75,10 @@ class User {
         $this->updated_at = htmlspecialchars(strip_tags($this->updated_at));
         $this->id = htmlspecialchars(strip_tags($this->id));
 
+        $hashed_password = password_hash($this->password, PASSWORD_DEFAULT);
         $stmt->bindParam(":name", $this->name);
         $stmt->bindParam(":username", $this->username);
-        $stmt->bindParam(":password", $this->password);
+        $stmt->bindParam(":password", $hashed_password);
         $stmt->bindParam(":email", $this->email);
         $stmt->bindParam(":updated_at", $this->updated_at);
         $stmt->bindParam(":id", $this->id);
@@ -106,6 +107,27 @@ class User {
         $this->username = htmlspecialchars(strip_tags($this->username));
         $this->password = htmlspecialchars(strip_tags($this->password));
 
+        // Procesar intentos de login
+        $maxAttempts = 3;
+        $mins = 1;
+        $blockTime = $mins * 60; // Bloqueo temporal en segundos
+
+        // Verificar si el usuario está bloqueado
+        $query = "SELECT * FROM login_attempt WHERE username = ? AND attempt_time > NOW() - INTERVAL ? SECOND";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$this->username, $blockTime]);
+        $failedAttempts = $stmt->rowCount();
+
+        if ($failedAttempts >= $maxAttempts) {
+            $response = [
+                'status' => false,
+                'message' => 'Tu cuenta está bloqueada temporalmente debido a múltiples intentos fallidos. Por favor, intenta de nuevo más tarde: '.$mins.' minuto(s).'
+            ]; 
+
+            return $response;
+        }
+
+        // Revisar credenciales
         $query = "SELECT id, username, password FROM " . $this->table_name . " WHERE username = :username";
         $stmt = $this->conn->prepare($query);
 
@@ -114,10 +136,25 @@ class User {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user && password_verify($this->password, $user['password'])) {
-            return true;
+            $response = [
+                'status' => true
+            ]; 
+
+            return $response;
         }
 
-        return false;
-    }
+        // Intento fallido, registrar intento
+        $query = "INSERT INTO login_attempt (username) VALUES (?)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$this->username]);
+        
+        $response = [
+            'status' => false,
+            'message' => 'Usuario o contraseña incorrectos.'
+        ]; 
+
+        return $response;
+    } 
+
 }
 ?>
