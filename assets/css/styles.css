@@ -84,14 +84,21 @@ body {
     justify-content: space-between;
 }
 
-.btn-login {
+.btn-session {
     background-color: transparent;
     color: #fff;
-    border: 1px solid green;
     padding: 10px;
     margin-top: auto;
     cursor: pointer;
     text-align: center;
+}
+
+.btn-login {
+    border: 1px solid green;
+}
+
+.btn-logout {
+    border: 1px solid red;
 }
 
 .content {

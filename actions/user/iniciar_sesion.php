@@ -1,4 +1,5 @@
 <?php
+    session_start();
     header("Content-Type: application/json");
     include_once '../../model/User.php';
 
@@ -13,6 +14,8 @@
         $user->password = $data->password;
 
         if ($user->login()) {
+            $_SESSION['user_id'] = "111";
+            $_SESSION['username'] = $user->username;
             echo json_encode(['status' => true]);
         } else {
             echo json_encode(['status' => false, 'message' => 'Usuario o contraseña incorrectos']);

@@ -1,4 +1,6 @@
 var UserManagement = {
+    IsLoggedIn: false,
+
     Controls: {
         UserTable: "#userTable",
         AddUserBtn: "#addUserBtn",
@@ -7,10 +9,13 @@ var UserManagement = {
         SaveUserBtn: "#saveUserBtn",
         FrmUser: "#frmUsers",
         UserId: "#hdnUserId",
-        BtnLogin: "#btnLogin"
+        BtnLogin: "#btnLogin", 
+        IsLoggedIn: "#isLoggedIn"
     },
 
     Init: function () {
+        UserManagement.IsLoggedIn = document.querySelector(this.Controls.IsLoggedIn).value;
+
         this.LoadUsers();
         this.BindEvents();
     },
@@ -41,10 +46,14 @@ var UserManagement = {
                 }
             }
         });
-
+  
         document.querySelector(this.Controls.BtnLogin).addEventListener('click', function () {
             event.preventDefault();
-            window.location.href = 'login.php';
+            if(UserManagement.IsLoggedIn){
+                window.location.href = 'index.php?mod=lg';
+            }else{
+                window.location.href = 'login.php';
+            }
         }); 
     },
 
@@ -60,10 +69,12 @@ var UserManagement = {
                 userTableBody += '<td>' + user.email + '</td>';
                 userTableBody += '<td>' + user.created_at + '</td>';
                 userTableBody += '<td>' + user.updated_at + '</td>';
-                userTableBody += '<td>';
-                userTableBody += '<img src="./assets/img/edit-icon.png" data-id="' + user.id + '" class="action-btn edit-user" alt="action" />';
-                userTableBody += '<img src="./assets/img/del-icon.png" data-id="' + user.id + '" class="action-btn delete-user" alt="action" />';
-                userTableBody += '</td>';
+                if(UserManagement.IsLoggedIn){
+                    userTableBody += '<td>';
+                    userTableBody += '<img src="./assets/img/edit-icon.png" data-id="' + user.id + '" class="action-btn edit-user" alt="action" />';
+                    userTableBody += '<img src="./assets/img/del-icon.png" data-id="' + user.id + '" class="action-btn delete-user" alt="action" />';
+                    userTableBody += '</td>';
+                }
                 userTableBody += '</tr>';
             });
             document.querySelector(self.Controls.UserTable + ' tbody').innerHTML = userTableBody;
