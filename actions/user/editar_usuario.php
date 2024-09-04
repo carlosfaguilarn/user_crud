@@ -9,14 +9,14 @@
         !empty($data->id) &&
         !empty($data->name) &&
         !empty($data->username)&&
-        !empty($data->password)&&
+        //!empty($data->password)&&
         !empty($data->email)
     ) {
         // Asigna los valores del objeto $data a las propiedades del objeto $user
         $user->id = $data->id;
         $user->name = $data->name;
         $user->username = $data->username;
-        $user->password = $data->password;
+        //$user->password = $data->password;
         $user->email = $data->email;
         $user->updated_at = date('Y-m-d H:i:s');
 

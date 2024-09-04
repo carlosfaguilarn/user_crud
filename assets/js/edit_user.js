@@ -1,4 +1,6 @@
 var EditUser = {
+    IsEditMode: false,
+
     // Definición de los selectores de control utilizados en el DOM
     Controls: {
         UserTable: "#userTable",
@@ -13,6 +15,8 @@ var EditUser = {
 
     // Inicializa la aplicación
     Init: function () {
+        EditUser.IsEditMode = document.querySelector(this.Controls.UserId).value != -1;
+
         EditUser.SearchUser(); 
         EditUser.BindEvents(); 
         EditUser.ClearForm();
@@ -46,10 +50,8 @@ var EditUser = {
     },
 
     // Busca el usuario indicado
-    SearchUser: function () {
-        var id = document.querySelector(this.Controls.UserId).value;
-
-        if(id == -1){
+    SearchUser: function () { 
+        if(!EditUser.IsEditMode){
             // Si no existe el parametro id, crea objeto para nuevo usuario
             var newUser = {
                 id: -1,
@@ -61,6 +63,7 @@ var EditUser = {
             EditUser.LoadUserSuccess(newUser);
         }else{
             // Usuario existente
+            var id = document.querySelector(this.Controls.UserId).value;
             User_Service.GetUser(id, EditUser.LoadUserSuccess);
         }
     },
@@ -71,8 +74,6 @@ var EditUser = {
         form.querySelector('#name').value = user.name;
         form.querySelector('#email').value = user.email; 
         form.querySelector('#username').value = user.username; 
-        form.querySelector('#password').value = user.password; 
-        form.querySelector('#confirm-password').value = user.password; 
     },
 
     // Procesa la solicitud de guardar el usuario y las validaciones necesarias
@@ -81,9 +82,7 @@ var EditUser = {
         var form = document.querySelector(EditUser.Controls.UserForm);
         var name = form.querySelector('#name').value.trim(); 
         var email = form.querySelector('#email').value.trim(); 
-        var username = form.querySelector('#username').value.trim(); 
-        var password = form.querySelector('#password').value.trim(); 
-        var passwordConfirm = form.querySelector('#confirm-password').value.trim(); 
+        var username = form.querySelector('#username').value.trim();
 
         isFormValid = true;
 
@@ -107,14 +106,19 @@ var EditUser = {
             isFormValid = false;
         }
 
-        if(password === ''){
-            document.getElementById('passwordError').textContent = 'La contraseña es requerido';
-            isFormValid = false;
-        }
+        if(!EditUser.IsEditMode){
+            var password = form.querySelector('#password').value.trim(); 
+            var passwordConfirm = form.querySelector('#confirm-password').value.trim(); 
 
-        if(password != passwordConfirm){
-            document.getElementById('passwordConfirmError').textContent = 'Las contraseñas no coinciden';
-            isFormValid = false;
+            if(password === ''){
+                document.getElementById('passwordError').textContent = 'La contraseña es requerido';
+                isFormValid = false;
+            }
+    
+            if(password != passwordConfirm){
+                document.getElementById('passwordConfirmError').textContent = 'Las contraseñas no coinciden';
+                isFormValid = false;
+            }
         }
 
         if(!isFormValid) return;

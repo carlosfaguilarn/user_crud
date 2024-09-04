@@ -83,23 +83,23 @@ class User
      */
     public function update()
     {
-        $query = "UPDATE " . $this->table_name . " SET name = :name,  username=:username, password=:password, email = :email, updated_at = :updated_at WHERE id = :id";
+        $query = "UPDATE " . $this->table_name . " SET name = :name,  username=:username, email = :email, updated_at = :updated_at WHERE id = :id";
 
         $stmt = $this->conn->prepare($query);
 
         // Sanitizar y enlazar los datos del usuario
         $this->name = htmlspecialchars(strip_tags($this->name));
         $this->username = htmlspecialchars(strip_tags($this->username));
-        $this->password = htmlspecialchars(strip_tags($this->password));
+        //$this->password = htmlspecialchars(strip_tags($this->password));
         $this->email = htmlspecialchars(strip_tags($this->email));
         $this->updated_at = htmlspecialchars(strip_tags($this->updated_at));
         $this->id = htmlspecialchars(strip_tags($this->id));
 
          // Hashear la contraseña antes de almacenarla
-        $hashed_password = password_hash($this->password, PASSWORD_DEFAULT);
+        //$hashed_password = password_hash($this->password, PASSWORD_DEFAULT);
         $stmt->bindParam(":name", $this->name);
         $stmt->bindParam(":username", $this->username);
-        $stmt->bindParam(":password", $hashed_password);
+        //$stmt->bindParam(":password", $hashed_password);
         $stmt->bindParam(":email", $this->email);
         $stmt->bindParam(":updated_at", $this->updated_at);
         $stmt->bindParam(":id", $this->id);

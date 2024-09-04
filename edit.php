@@ -4,7 +4,8 @@ $id = 0;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = $_POST['id'];
-    $title = $id == -1 ? "Agregar usuario" : "Modificar usuario";
+    $title = $id != -1 ? "Modificar usuario" : "Agregar usuario";
+    $isEditMode = $id != -1;
 }
 ?>
 <html>
@@ -68,27 +69,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="error-message" id="emailError"></div>
                     </div>
 
-                    <div class="input-container">
-                        <label for="email">Contraseña</label>
-                        <div class="input-wrapper">
-                            <span class="icon">
-                                <img src="./assets/img/password.png" alt="Contraseña Icon">
-                            </span>
-                            <input type="password" id="password" name="password" placeholder="Contraseña" required>
+                    <?php if (!$isEditMode): ?>
+                        <div class="input-container">
+                            <label for="email">Contraseña</label>
+                            <div class="input-wrapper">
+                                <span class="icon">
+                                    <img src="./assets/img/password.png" alt="Contraseña Icon">
+                                </span>
+                                <input type="password" id="password" name="password" placeholder="Contraseña" required>
+                            </div>
+                            <div class="error-message" id="passwordError"></div>
                         </div>
-                        <div class="error-message" id="passwordError"></div>
-                    </div>
 
-                    <div class="input-container">
-                        <label for="email">Confirmar contraseña</label>
-                        <div class="input-wrapper">
-                            <span class="icon">
-                                <img src="./assets/img/password-confirm.png" alt="Confirmar contraseña Icon">
-                            </span>
-                            <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirmar contraseña" required>
+                        <div class="input-container">
+                            <label for="email">Confirmar contraseña</label>
+                            <div class="input-wrapper">
+                                <span class="icon">
+                                    <img src="./assets/img/password-confirm.png" alt="Confirmar contraseña Icon">
+                                </span>
+                                <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirmar contraseña" required>
+                            </div>
+                            <div class="error-message" id="passwordConfirmError"></div>
                         </div>
-                        <div class="error-message" id="passwordConfirmError"></div>
-                    </div>
+                    
+                    <?php endif; ?> 
                 </div>
 
 

@@ -59,12 +59,13 @@ var Login = {
 
     // Procesa la respuesta de la llamada al servicio de inicio de sesión
     LogginSuccess: function (response){
+        debugger;
         if (response.status) {
             window.location.href = 'index.php';
         } else {
             document.querySelector('#loginError').textContent = response.message;
         }
-    }
+    } 
 };
 
 // Ejecuta la inicialización del módulo Login cuando el DOM esté completamente cargado

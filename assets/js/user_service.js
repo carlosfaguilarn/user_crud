@@ -6,12 +6,10 @@ User_Service = {
         $.ajax({
             url: User_Service.module_prefix + '/obtener_usuarios.php',
             type: 'GET',
-            dataType: 'json',
-            success: function(data) {
-                successCallBack(data);
-            },
-            error: function(xhr, status, error) {
-                console.error('Error:', error);
+            dataType: 'json',               
+            complete: function(xhr, status) {
+                var response = xhr.responseJSON;
+                successCallBack(response);
             }
         });
     },
@@ -22,12 +20,10 @@ User_Service = {
             url: User_Service.module_prefix + '/obtener_usuarios.php',
             type: 'GET',
             data: { id: encodeURIComponent(userId) },
-            dataType: 'json',
-            success: function(data) {
-                successCallBack(data);
-            },
-            error: function(xhr, status, error) {
-                console.error('Error:', error);
+            dataType: 'json',                 
+            complete: function(xhr, status) {
+                var response = xhr.responseJSON;
+                successCallBack(response);
             }
         });
     },
@@ -40,12 +36,10 @@ User_Service = {
             data: formData,
             contentType: false,
             processData: false,
-            dataType: 'json',
-            success: function(response) {
+            dataType: 'json',                 
+            complete: function(xhr, status) {
+                var response = xhr.responseJSON;
                 successCallBack(response);
-            },
-            error: function(xhr, status, error) {
-                console.error('Error:', error);
             }
         });
     },
@@ -58,12 +52,10 @@ User_Service = {
             data: formData,
             contentType: false,
             processData: false,
-            dataType: 'json',
-            success: function(response) {
+            dataType: 'json',                 
+            complete: function(xhr, status) {
+                var response = xhr.responseJSON;
                 successCallBack(response);
-            },
-            error: function(xhr, status, error) {
-                console.error('Error:', error);
             }
         });
     },
@@ -76,12 +68,10 @@ User_Service = {
             data: formData,
             contentType: false,
             processData: false,
-            dataType: 'json',
-            success: function(response) {
+            dataType: 'json',                 
+            complete: function(xhr, status) {
+                var response = xhr.responseJSON;
                 successCallBack(response);
-            },
-            error: function(xhr, status, error) {
-                console.error('Error:', error);
             }
         });
     }
