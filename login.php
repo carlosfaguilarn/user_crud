@@ -19,14 +19,16 @@
         <h5 style="text-align: center;">Ingresa tus datos a continuación</h5>
         <form id="loginForm">
             <div class="input-container">
-                <label for="username">Correo Electrónico:</label>
-                <input type="text" id="username" name="username" placeholder="Ingrese el Correo" required>
+                <label for="username">Usuario:</label>
+                <input type="text" id="username" name="username" placeholder="Ingrese el usuario" required>
+                <div class="error-message" id="userError"></div>
             </div>
             <div class="input-container">
                 <label for="password">Contraseña:</label>
-                <input type="password" id="password" name="password" placeholder="Introduzca Contraseña" required>
+                <input type="password" id="password" name="password" placeholder="Ingrese la contraseña" required>
+                <div class="error-message" id="passwordError"></div>
             </div>
-            <div id="loginError" class="error-message"></div>
+            <div id="loginError" class="error-message text-center"></div>
 
             <div class="button-container">
                 <button id="btnLogin">Iniciar sesión</button>

@@ -3,6 +3,7 @@ var Login = {
         BtnLogin: "#btnLogin",
         Username: "#username",
         Password: "#password",
+        LoginForm: "#loginForm"
     },
 
     Init: function () {
@@ -17,7 +18,32 @@ var Login = {
         });  
     }, 
 
+    ClearForm: function () { 
+        document.querySelectorAll('.error-message').forEach(function(el) {
+            el.textContent = '';
+        });
+    },
+
     AttemptLogin: function () {
+        Login.ClearForm();
+        var form = document.querySelector(Login.Controls.LoginForm);
+        var username = form.querySelector('#username').value.trim(); 
+        var password = form.querySelector('#password').value.trim(); 
+
+        var isFormValid = true;
+
+        if(username === ''){
+            document.getElementById('userError').textContent = 'El usuario es requerido';
+            isFormValid = false;
+        }
+        
+        if(password === ''){
+            document.getElementById('passwordError').textContent = 'La contraseña es requerida';
+            isFormValid = false;
+        }
+
+        if(!isFormValid) return;
+
         var jsonData = {
             "username": document.querySelector(this.Controls.Username).value,
             "password": document.querySelector(this.Controls.Password).value

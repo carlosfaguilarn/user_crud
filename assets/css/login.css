@@ -62,8 +62,9 @@ h2 {
 
 .error-message {
     color: red;
-    text-align: center;
+    text-align: start;
     margin-bottom: 20px;
+    margin-top: 5px;
 }
 
 .logotipo {
@@ -74,4 +75,8 @@ h2 {
     width: 100%;
     display: flex;
     justify-content: center;
+}
+
+.text-center {
+    text-align: center;
 }
