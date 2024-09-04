@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-image: url("../img/back.jpg");
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,13 +17,15 @@ body {
 }
 
 h2 {
+    margin-top: 10px;
     margin-bottom: 20px;
     text-align: center;
     color: #333;
 }
 
 .input-container {
-    margin-bottom: 15px;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 .input-container label {
@@ -37,6 +39,7 @@ h2 {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 3px;
+    box-sizing: border-box;
 }
 
 .button-container {
@@ -44,12 +47,12 @@ h2 {
 }
 
 .button-container button {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
+    width: auto;
+    padding: 10px 15px;
+    background-color: #cd3739;
     color: #fff;
     border: none;
-    border-radius: 3px;
+    border-radius: 15px;
     cursor: pointer;
 }
 
@@ -60,5 +63,15 @@ h2 {
 .error-message {
     color: red;
     text-align: center;
-    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.logotipo {
+    width: 140px;
+}
+
+.container-logotipo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }

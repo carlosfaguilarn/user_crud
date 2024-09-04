@@ -6,7 +6,8 @@ var UserManagement = {
         UserForm: "#userForm",
         SaveUserBtn: "#saveUserBtn",
         FrmUser: "#frmUsers",
-        UserId: "#hdnUserId"
+        UserId: "#hdnUserId",
+        BtnLogin: "#btnLogin"
     },
 
     Init: function () {
@@ -40,6 +41,11 @@ var UserManagement = {
                 }
             }
         });
+
+        document.querySelector(this.Controls.BtnLogin).addEventListener('click', function () {
+            event.preventDefault();
+            window.location.href = 'login.php';
+        }); 
     },
 
     LoadUsers: function () {

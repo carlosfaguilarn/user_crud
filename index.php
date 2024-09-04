@@ -69,7 +69,7 @@
                     <li class="menu-item">Amigos <span class="count">10</span></li>
                     <li class="menu-item">Oficina <span class="count">3</span></li>
                 </ul>
-                <button class="create-tag">Iniciar sesión</button>
+                <button id="btnLogin" class="btn-login">Iniciar sesión</button>
             </aside>
 
             <section class="content">
