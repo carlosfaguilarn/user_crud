@@ -1,4 +1,5 @@
 var Login = {
+    // Definición de los selectores de control utilizados en el DOM
     Controls: {
         BtnLogin: "#btnLogin",
         Username: "#username",
@@ -6,10 +7,12 @@ var Login = {
         LoginForm: "#loginForm"
     },
 
+    // Inicializa la aplicación
     Init: function () {
         this.BindEvents();
     },
 
+    // Asocia eventos a los elementos del DOM
     BindEvents: function () {
         var self = this; 
         document.querySelector(this.Controls.BtnLogin).addEventListener('click', function () {
@@ -18,12 +21,14 @@ var Login = {
         });  
     }, 
 
+    // Limpia los errores del formulario
     ClearForm: function () { 
         document.querySelectorAll('.error-message').forEach(function(el) {
             el.textContent = '';
         });
     },
 
+    // Procesa la solicitud de inicio de sesión y las validaciones
     AttemptLogin: function () {
         Login.ClearForm();
         var form = document.querySelector(Login.Controls.LoginForm);
@@ -52,8 +57,8 @@ var Login = {
         Login_Service.Login(jsonString, Login.LogginSuccess); 
     },
 
+    // Procesa la respuesta de la llamada al servicio de inicio de sesión
     LogginSuccess: function (response){
-        debugger;
         if (response.status) {
             window.location.href = 'index.php';
         } else {
@@ -62,6 +67,7 @@ var Login = {
     }
 };
 
+// Ejecuta la inicialización del módulo Login cuando el DOM esté completamente cargado
 document.addEventListener('DOMContentLoaded', function () {
     Login.Init();
 });

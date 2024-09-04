@@ -1,4 +1,5 @@
 var EditUser = {
+    // Definición de los selectores de control utilizados en el DOM
     Controls: {
         UserTable: "#userTable",
         AddUserBtn: "#addUserBtn",
@@ -10,12 +11,14 @@ var EditUser = {
         Logo: "#logo"
     },
 
+    // Inicializa la aplicación
     Init: function () {
         EditUser.SearchUser(); 
         EditUser.BindEvents(); 
         EditUser.ClearForm();
     },
 
+    // Asocia eventos a los elementos del DOM
     BindEvents: function () {
         var self = this;
 
@@ -35,21 +38,19 @@ var EditUser = {
         }); 
     },
 
-    ClearForm: function () {
-        // var form = document.querySelector(this.Controls.UserForm);
-        // form.reset();
-        // form.querySelector('input[name="id"]').value = '';
-        // Limpiar mensajes de error
+    // Limpia los errores del formulario
+    ClearForm: function () { 
         document.querySelectorAll('.error-message').forEach(function(el) {
             el.textContent = '';
         });
     },
 
+    // Busca el usuario indicado
     SearchUser: function () {
         var id = document.querySelector(this.Controls.UserId).value;
 
         if(id == -1){
-            // Es nuevo usuario
+            // Si no existe el parametro id, crea objeto para nuevo usuario
             var newUser = {
                 id: -1,
                 name: "",
@@ -64,6 +65,7 @@ var EditUser = {
         }
     },
 
+    // Carga la información del usuario en el formulario
     LoadUserSuccess: function (user) {
         var form = document.querySelector(EditUser.Controls.UserForm);
         form.querySelector('#name').value = user.name;
@@ -73,9 +75,9 @@ var EditUser = {
         form.querySelector('#confirm-password').value = user.password; 
     },
 
+    // Procesa la solicitud de guardar el usuario y las validaciones necesarias
     SaveUser: function () { 
         EditUser.ClearForm();
-
         var form = document.querySelector(EditUser.Controls.UserForm);
         var name = form.querySelector('#name').value.trim(); 
         var email = form.querySelector('#email').value.trim(); 
@@ -136,6 +138,7 @@ var EditUser = {
         }
     },
 
+    // Procesa la respuesta de la llamada al servicio para guardar usuario
     SaveUserSuccess: function (result) {
         setTimeout(function(){
             if(result.success){
@@ -181,19 +184,14 @@ var EditUser = {
         }
     },
 
+    // Validar si el correo tiene una estructura correcta
     isValidEmail: function (email) {
-        debugger;
-        // Expresión regular para validar el formato del correo electrónico
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    
-        // Retorna true si el email es válido, de lo contrario false
-        const res = emailRegex.test(email);
-
-        return res;
+        return emailRegex.test(email);
     }
-    
 };
 
+// Ejecuta la inicialización del módulo Login cuando el DOM esté completamente cargado
 document.addEventListener('DOMContentLoaded', function () {
     EditUser.Init();
 });

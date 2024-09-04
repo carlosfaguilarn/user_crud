@@ -7,6 +7,7 @@
     <title>Iniciar Sesión</title>
     <link rel="stylesheet" href="assets/css/global.css">
     <link rel="stylesheet" href="assets/css/login.css">
+    <script src="assets/lib/jquery/jquery-3.7.1.min.js"></script>
 </head>
 
 <body>

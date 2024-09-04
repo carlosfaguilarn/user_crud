@@ -71,6 +71,8 @@ body {
     cursor: pointer;
     text-align: left;
     border-radius: 10px;
+    margin-top: auto;
+    text-align: center;
 }
 
 .menu {
@@ -86,13 +88,14 @@ body {
 }
 
 .btn-session {
+    width: 100%;
     padding: 10px;
-    margin-top: auto;
     cursor: pointer;
     text-align: center;
     border-radius: 10px;
     font-family: "Roboto Bold";
     color: #FFF;
+    border: none; 
 }
 
 .btn-login {

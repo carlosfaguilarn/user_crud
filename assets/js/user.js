@@ -1,8 +1,10 @@
 var UserManagement = {
+    // Propiedades del objeto UserManagement
     IsLoggedIn: false,
     userIdToDelete: null,
     modalConfirmation: null,
 
+    // Definición de los selectores de control utilizados en el DOM
     Controls: {
         UserTable: "#userTable",
         AddUserBtn: "#addUserBtn",
@@ -17,22 +19,26 @@ var UserManagement = {
         CancelDelete: "#cancelDelete"
     },
 
+    // Inicializa la aplicación
     Init: function () {
+        // Establece si el usuario tiene una sesión activa
         UserManagement.IsLoggedIn = document.querySelector(this.Controls.IsLoggedIn).value;
         UserManagement.modalConfirmation = document.getElementById('confirmationModal');
         this.LoadUsers();
         this.BindEvents();
     },
 
+    // Asocia eventos a los elementos del DOM
     BindEvents: function () {
         var self = this;
 
+        // Evento para el botón de agregar usuario
         document.querySelector(this.Controls.AddUserBtn).addEventListener('click', function () {
-            debugger;
-            $('#hdnUserId').val(-1);
+            $('#hdnUserId').val(-1); // Nuevo usuario necesita id en -1
             $('#frmUsers').submit();
         }); 
 
+        // Evento para el boton "editar" de la tabla de usuarios
         document.getElementById('userTableBody').addEventListener('click', function(event) {
             if (event.target.classList.contains('edit-user')) {
                 var userId = event.target.getAttribute('data-id');
@@ -41,8 +47,10 @@ var UserManagement = {
             }
         });
 
+        // Evento para el boton "eliminar" de la tabla de usuarios
         document.getElementById('userTableBody').addEventListener('click', function(event) {
             if (event.target.classList.contains('delete-user')) {
+                // Mostrar modal de confirmación
                 UserManagement.userIdToDelete = event.target.getAttribute('data-id');
                 UserManagement.modalConfirmation.style.display = 'block';
 
@@ -50,6 +58,7 @@ var UserManagement = {
             }
         });
   
+        // Evento para el botón de login/logout
         document.querySelector(this.Controls.BtnLogin).addEventListener('click', function () {
             event.preventDefault();
             if(UserManagement.IsLoggedIn){
@@ -59,6 +68,7 @@ var UserManagement = {
             }
         }); 
 
+        // Evento para confirmar la eliminación de un usuario
         document.querySelector(this.Controls.ConfirmDelete).addEventListener('click', function() {
             if (UserManagement.userIdToDelete) {
                 UserManagement.DeleteUser(UserManagement.userIdToDelete);
@@ -66,17 +76,20 @@ var UserManagement = {
             }
         });
 
+        // Evento para cancelar la eliminación de un usuario
         document.querySelector(this.Controls.CancelDelete).addEventListener('click', function() {
             UserManagement.modalConfirmation.style.display = 'none';
             UserManagement.userIdToDelete = null;
         });
     },
 
+    // Carga la lista de usuarios desde el servicio
     LoadUsers: function () {
         var self = this;
         User_Service.GetUsers(function (data) {
             var userTableBody = '';
             data.forEach(function (user) {
+                // Construye el HTML de la tabla con los datos de los usuarios
                 userTableBody += '<tr>';
                 userTableBody += '<td>' + user.id + '</td>';
                 userTableBody += '<td>' + user.name + '</td>';
@@ -85,6 +98,7 @@ var UserManagement = {
                 userTableBody += '<td>' + UserManagement.FormatDate(user.created_at) + '</td>';
                 userTableBody += '<td>' + UserManagement.FormatDate(user.updated_at) + '</td>';
 
+                // Si el usuario tiene sesión activa, muestra los botones de acción
                 if(UserManagement.IsLoggedIn){
                     userTableBody += '<td>';
                     userTableBody += '<img src="./assets/img/edit-icon.png" data-id="' + user.id + '" class="action-btn edit-user" alt="action" />';
@@ -93,16 +107,13 @@ var UserManagement = {
                 }
                 userTableBody += '</tr>';
             });
+
+            // Inserta el HTML en el cuerpo de la tabla
             document.querySelector(self.Controls.UserTable + ' tbody').innerHTML = userTableBody;
         });
     },
 
-    ClearForm: function () {
-        var form = document.querySelector(this.Controls.UserForm);
-        form.reset();
-        form.querySelector('input[name="id"]').value = '';
-    },
-
+    // Elimina un usuario usando el servicio
     DeleteUser: function (userId) {
         var jsonString = JSON.stringify({
             id: userId
@@ -118,6 +129,7 @@ var UserManagement = {
         });
     },
 
+    // Formatea una fecha en el formato DD/MM/YYYY HH:MM:SS
     FormatDate: function(dateString) {
         const date = new Date(dateString);
         const day = String(date.getDate()).padStart(2, '0');
@@ -133,6 +145,7 @@ var UserManagement = {
     }
 };
 
+// Ejecuta la inicialización del módulo UserManagement cuando el DOM esté completamente cargado
 document.addEventListener('DOMContentLoaded', function () {
     UserManagement.Init();
 });

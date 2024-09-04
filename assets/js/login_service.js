@@ -1,15 +1,21 @@
 Login_Service = {
     module_prefix: "actions/user",
 
+    // Método para validar inicio de sesión en el servicio
     Login: function (formData, successCallBack) { 
-        debugger;
-        console.log(formData);
-        fetch(Login_Service.module_prefix+'/iniciar_sesion.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then((response) => successCallBack(response))
-        .catch(error => console.error('Error:', error));
-    },
+        $.ajax({
+            url: Login_Service.module_prefix + '/iniciar_sesion.php',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+            success: function(response) {
+                successCallBack(response);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+            }
+        });
+    }
 };

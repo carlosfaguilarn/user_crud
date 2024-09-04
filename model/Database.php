@@ -10,6 +10,10 @@ class Database {
         $this->config = json_decode(file_get_contents($configPath), true);
     }
 
+    /**
+     * Método que crea una conexión a la base de datos configurada en 
+     * config/db.json
+     */
     public function getConnection() {
         $this->conn = null;
 

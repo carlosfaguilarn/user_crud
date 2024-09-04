@@ -30,7 +30,11 @@ if (isset($_GET['mod']) && $_GET['mod'] === 'lg') {
     <div class="container">
         <header class="header">
             <div class="container-button-add">
-                <button id="addUserBtn" class="add-contact">Agregar usuario</button>
+                <?php if ($isLoggedIn): ?>
+                    <button id="btnLogin" data-id="logout" class="btn-session btn-logout">Cerrar sesión</button>
+                <?php else: ?>
+                    <button id="btnLogin" data-id="login" class="btn-session btn-login">Iniciar sesión</button>
+                <?php endif; ?>
             </div>
             <div class="logo">
                 <img src="./assets/img/logotipo.png" class="logotipo" alt="logotipo" />
@@ -47,11 +51,7 @@ if (isset($_GET['mod']) && $_GET['mod'] === 'lg') {
                     <li class="menu-item">Oficina</li>
                 </ul>
 
-                <?php if ($isLoggedIn): ?>
-                    <button id="btnLogin" data-id="logout" class="btn-session btn-logout">Cerrar sesión</button>
-                <?php else: ?>
-                    <button id="btnLogin" data-id="login" class="btn-session btn-login">Iniciar sesión</button>
-                <?php endif; ?>
+                <button id="addUserBtn" class="add-contact">Agregar usuario</button> 
             </aside>
 
             <section class="content">

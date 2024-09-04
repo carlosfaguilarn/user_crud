@@ -6,6 +6,7 @@
     $user = new User();
     $data = json_decode(file_get_contents("php://input"));
 
+    // Verifica que los campos requeridos no estén vacíos
     if (
         !empty($data->username)&&
         !empty($data->password)
@@ -13,10 +14,12 @@
         $user->username = $data->username;
         $user->password = $data->password;
 
+        // Verifica las credenciales del usuario
         $response_login = $user->login();
 
+        // Si las credenciales son correctas, inicia la sesión
         if ($response_login['status'] === true) {
-            $_SESSION['user_id'] = "111";
+            $_SESSION['user_id'] = $user->username;
             $_SESSION['username'] = $user->username;
             http_response_code(200); 
         }else{
