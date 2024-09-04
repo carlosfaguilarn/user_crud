@@ -1,5 +1,7 @@
 var UserManagement = {
     IsLoggedIn: false,
+    userIdToDelete: null,
+    modalConfirmation: null,
 
     Controls: {
         UserTable: "#userTable",
@@ -10,12 +12,14 @@ var UserManagement = {
         FrmUser: "#frmUsers",
         UserId: "#hdnUserId",
         BtnLogin: "#btnLogin", 
-        IsLoggedIn: "#isLoggedIn"
+        IsLoggedIn: "#isLoggedIn",
+        ConfirmDelete: "#confirmDelete",
+        CancelDelete: "#cancelDelete"
     },
 
     Init: function () {
         UserManagement.IsLoggedIn = document.querySelector(this.Controls.IsLoggedIn).value;
-
+        UserManagement.modalConfirmation = document.getElementById('confirmationModal');
         this.LoadUsers();
         this.BindEvents();
     },
@@ -39,11 +43,10 @@ var UserManagement = {
 
         document.getElementById('userTableBody').addEventListener('click', function(event) {
             if (event.target.classList.contains('delete-user')) {
-                var userId = event.target.getAttribute('data-id');
-                var res = confirm("Se eliminará el usuario: " + userId + " \n ¿Continuar?");
-                if(res){
-                    UserManagement.DeleteUser(userId);
-                }
+                UserManagement.userIdToDelete = event.target.getAttribute('data-id');
+                UserManagement.modalConfirmation.style.display = 'block';
+
+                document.querySelector("#messageConfirmation").textContent = "¿Estás seguro de que deseas eliminar el usuario "+event.target.getAttribute('data-name')+"?";
             }
         });
   
@@ -55,6 +58,18 @@ var UserManagement = {
                 window.location.href = 'login.php';
             }
         }); 
+
+        document.querySelector(this.Controls.ConfirmDelete).addEventListener('click', function() {
+            if (UserManagement.userIdToDelete) {
+                UserManagement.DeleteUser(UserManagement.userIdToDelete);
+                UserManagement.modalConfirmation.style.display = 'none';
+            }
+        });
+
+        document.querySelector(this.Controls.CancelDelete).addEventListener('click', function() {
+            UserManagement.modalConfirmation.style.display = 'none';
+            UserManagement.userIdToDelete = null;
+        });
     },
 
     LoadUsers: function () {
@@ -73,7 +88,7 @@ var UserManagement = {
                 if(UserManagement.IsLoggedIn){
                     userTableBody += '<td>';
                     userTableBody += '<img src="./assets/img/edit-icon.png" data-id="' + user.id + '" class="action-btn edit-user" alt="action" />';
-                    userTableBody += '<img src="./assets/img/del-icon.png" data-id="' + user.id + '" class="action-btn delete-user" alt="action" />';
+                    userTableBody += '<img src="./assets/img/del-icon.png" data-id="' + user.id + '" data-name="' + user.name + '" class="action-btn delete-user" alt="action" />';
                     userTableBody += '</td>';
                 }
                 userTableBody += '</tr>';
@@ -87,11 +102,8 @@ var UserManagement = {
         form.reset();
         form.querySelector('input[name="id"]').value = '';
     },
- 
 
     DeleteUser: function (userId) {
-        debugger; 
-
         var jsonString = JSON.stringify({
             id: userId
         });
@@ -99,7 +111,6 @@ var UserManagement = {
         User_Service.DeleteUser(jsonString, function (response) {
             debugger; 
             if(response.success){
-                alert('Usuario eliminado exitósamente');
                 UserManagement.LoadUsers();
             }else{
                 alert('Ocurrió un error al eliminar el usuario');
@@ -108,10 +119,7 @@ var UserManagement = {
     },
 
     FormatDate: function(dateString) {
-        // Convertir el string en un objeto Date
         const date = new Date(dateString);
-    
-        // Obtener los diferentes componentes de la fecha
         const day = String(date.getDate()).padStart(2, '0');
         const month = String(date.getMonth() + 1).padStart(2, '0'); // Los meses son 0-indexados
         const year = date.getFullYear();
@@ -119,8 +127,6 @@ var UserManagement = {
         const hours = String(date.getHours()).padStart(2, '0');
         const minutes = String(date.getMinutes()).padStart(2, '0');
         const seconds = String(date.getSeconds()).padStart(2, '0');
-    
-        // Formatear la fecha como dd/MM/yyyy hh:mm:ss
         const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
     
         return formattedDate;

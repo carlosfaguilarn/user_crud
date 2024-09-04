@@ -1,20 +1,14 @@
 <?php
-    // session_start();
+$title = "";
+$id = 0;
 
-    // if (!isset($_SESSION['user_id'])) {
-    //     header("Location: login.php");
-    //     exit;
-    // }
-
-    $title = "";
-    $id = 0;
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $id = $_POST['id'];
-        $title = $id == -1 ? "Agregar usuario" : "Modificar usuario";
-    }
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $id = $_POST['id'];
+    $title = $id == -1 ? "Agregar usuario" : "Modificar usuario";
+}
 ?>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title><?php echo $title ?></title>
@@ -62,7 +56,7 @@
                         </div>
                         <div class="error-message" id="userError"></div>
                     </div>
-    
+
                     <div class="input-container">
                         <label for="email">Correo electrónico</label>
                         <div class="input-wrapper">
@@ -73,7 +67,7 @@
                         </div>
                         <div class="error-message" id="emailError"></div>
                     </div>
-    
+
                     <div class="input-container">
                         <label for="email">Contraseña</label>
                         <div class="input-wrapper">
@@ -83,7 +77,7 @@
                             <input type="password" id="password" name="password" placeholder="Contraseña" required>
                         </div>
                         <div class="error-message" id="passwordError"></div>
-                    </div> 
+                    </div>
 
                     <div class="input-container">
                         <label for="email">Confirmar contraseña</label>
@@ -94,9 +88,9 @@
                             <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirmar contraseña" required>
                         </div>
                         <div class="error-message" id="passwordConfirmError"></div>
-                    </div>  
+                    </div>
                 </div>
-                
+
 
                 <div class="button-container">
                     <button id="btnSave" class="btn-save">Guardar</button>
@@ -105,11 +99,12 @@
             </form>
         </div>
         <div class="image-container">
-            <img src="assets/img/office.png" alt="Imagen de fondo">
+            <img class="img-office" src="assets/img/office.png" alt="Imagen de fondo">
+            <img class="img-logotipo" src="assets/img/logotipo.png" alt="Imagen de fondo">
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Progress modal -->
     <div id="loadingModal" class="modal">
         <div class="modal-content">
             <div id="loader" class="loader"></div>
