@@ -6,7 +6,8 @@ var EditUser = {
         UserForm: "#userForm",
         SaveBtn: "#btnSave",
         CancelBtn: "#btnCancel",
-        UserId: "#id"
+        UserId: "#id",
+        Logo: "#logo"
     },
 
     Init: function () {
@@ -23,6 +24,11 @@ var EditUser = {
         }); 
         
         document.querySelector(this.Controls.CancelBtn).addEventListener('click', function () {
+            event.preventDefault();
+            window.location.href = 'index.php';
+        }); 
+        
+        document.querySelector(this.Controls.Logo).addEventListener('click', function () {
             event.preventDefault();
             window.location.href = 'index.php';
         }); 

@@ -18,12 +18,21 @@
 <head>
     <meta charset="UTF-8">
     <title><?php echo $title ?></title>
-    <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/edit.css">
     <script src="assets/lib/jquery/jquery-3.7.1.min.js"></script>
 </head>
 
 <body>
+    <div class="left-panel">
+        <div class="panel-logo">
+            <img id="logo" src="./assets/img/avion.png" class="logo-img" alt="logo" />
+        </div>
+        <div class="social-media-icons">
+            <img src="./assets/img/red1.png" class="logo-img red" alt="red1" />
+            <img src="./assets/img/red2.png" class="logo-img red" alt="red2" />
+            <img src="./assets/img/red3.png" class="logo-img red" alt="red3" />
+        </div>
+    </div>
     <div class="container">
         <div class="form-container">
             <h2><?php echo $title ?></h2>
